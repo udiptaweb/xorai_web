@@ -1,78 +1,40 @@
-export default function Page() {
-    return (
-    <div class="isolate py-5">
-        <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
-        </div>
-        <div class="mx-auto max-w-2xl text-center">
-          <p className="text-3xl sm:text-4xl text-slate-900 font-extrabold tracking-tight dark:text-slate-50">Contact Us</p>
-        </div>
-        <form action="#" method="POST" class="mx-auto mt-5 max-w-xl sm:mt-5">
-            <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                <div>
-                    <label for="first-name" class="block text-sm font-semibold leading-6 text-black">First name</label>
-                    <div class="mt-2.5">
-                        <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm shadow-blue-500 ring-1 ring-inset ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"></input>
-                    </div>
-                </div>
-                <div>
-                    <label for="last-name" class="block text-sm font-semibold leading-6 text-black">Last name</label>
-                    <div class="mt-2.5">
-                        <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset shadow-blue-500 ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"></input>
-                    </div>
-                </div>
-                <div class="sm:col-span-2">
-                    <label for="company" class="block text-sm font-semibold leading-6 text-black">Company</label>
-                    <div class="mt-2.5">
-                        <input type="text" name="company" id="company" autocomplete="organization" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset shadow-blue-500 ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"></input>
-                    </div>
-                </div>
-                <div class="sm:col-span-2">
-                    <label for="email" class="block text-sm font-semibold leading-6 text-red-600">Email</label>
-                    <div class="mt-2.5">
-                        <input type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset shadow-blue-500 ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"></input>
-                    </div>
-                </div>
-                <div class="sm:col-span-2">
-                    <label for="phone-number" class="block text-sm font-semibold leading-6 text-green-600">Phone number</label>
-                    <div class="relative mt-2.5">
-                        <div class="absolute inset-y-0 left-0 flex items-center">
-                            <label for="country" class="sr-only">Country</label>
-                            <select id="country" name="country" class="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-                                <option>US</option>
-                                <option>CA</option>
-                                <option>EU</option>
-                                <option>UK</option>
-                                <option>YE</option>
-                                <option>MA</option>
-                            </select>
-                           
-                        </div>
-                        <input type="tel" name="phone-number" id="phone-number" autocomplete="tel" class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></input>
-                    </div>
-                </div>
-                <div class="sm:col-span-2">
-                    <label for="message" class="block text-sm font-semibold leading-6 text-green-600">Message</label>
-                    <div class="mt-2.5">
+'use client';
+import axios from "axios";
+axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
+axios.defaults.headers.common['Accept'] = 'application/json';
 
-                        <textarea name="message" id="message" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-                    </div>
+async function csrfCookieInitiate() {
+    await axios.get('http://xorai_api.dev/sanctum/csrf-cookie').then(async response => {
+        console.log(response);
+        await axios.post('http://xorai_api.dev/api/store-site-data', {
+            'data': 'test'
+        }).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        })
+    });
+
+}
+
+export default function Page() {
+
+    return (
+        <div className="isolate py-12">
+
+            <div className="mx-auto max-w-2xl text-center p-5">
+                <p className="text-3xl sm:text-4xl text-slate-900 font-extrabold tracking-tight dark:text-slate-50">Contact Us</p>
+            </div>
+            {/* <div className="mx-auto mt-5 max-w-4xl sm:mt-5">
+                <div>
+                    <svg className="text-green-500" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 32 32"><path fill="currentColor" d="M16 32C7.163 32 0 24.837 0 16S7.163 0 16 0s16 7.163 16 16s-7.163 16-16 16m.017-10.196a4.964 4.964 0 0 1-2.227-.416a5.592 5.592 0 0 1-1.937-1.386a5.267 5.267 0 0 1-1.38-3.591c-.026-.74.075-1.48.298-2.186c.199-.596.5-1.153.888-1.646a5.356 5.356 0 0 1 1.643-1.398a5.086 5.086 0 0 1 1.92-.606a5.92 5.92 0 0 1 1.65.021c.7.116 1.37.374 1.966.758A5.44 5.44 0 0 1 20.4 12.87c.051.071.11.1.186.025l.488-.489c.16-.16.333-.315.476-.48c.143-.164.316-.29.467-.45c.434-.459.893-.897 1.34-1.347c.075-.076.083-.114.163.02c.08.135.19.25.278.375a9.482 9.482 0 0 1 1.642 3.84c.068.338.109.68.123 1.024c.032.605.02 1.211-.038 1.814c-.096.787-.278 1.56-.543 2.308a9.634 9.634 0 0 1-1.188 2.24c-.084.105-.097.18 0 .278c.468.463.93.938 1.394 1.406c.139.164.177.16.299 0c.8-1.047 1.418-2.22 1.831-3.47c.17-.504.31-1.017.421-1.536c.131-.62.165-1.255.232-1.883c.059-.551-.063-1.103-.063-1.654a.143.143 0 0 0 0-.034c-.13-.594-.185-1.2-.354-1.794c-.2-.721-.46-1.425-.775-2.105a11.79 11.79 0 0 0-1.452-2.307c-.451-.57-.95-1.101-1.49-1.588c-.178-.16-.22-.155-.384.021l-1.402 1.49l-.973 1.028c-.063.068-.126.101-.206.03a7.192 7.192 0 0 0-1.318-.842a6.514 6.514 0 0 0-1.402-.552a6.783 6.783 0 0 0-1.756-.278a1.554 1.554 0 0 1-.193 0a5.356 5.356 0 0 0-1.09.025c-.47.045-.934.135-1.386.27a8 8 0 0 0-1.604.657a8.084 8.084 0 0 0-3.217 3.099a8.636 8.636 0 0 0-.817 1.983c-.113.453-.194.913-.244 1.377a5.701 5.701 0 0 0-.021 1.414c.048.642.167 1.276.353 1.891c.113.337.239.667.38.99c.185.41.41.802.669 1.17a8.69 8.69 0 0 0 1.642 1.802a7.579 7.579 0 0 0 2.345 1.318a8.354 8.354 0 0 0 3.082.421c.82-.03 1.632-.18 2.409-.446a7.524 7.524 0 0 0 1.772-.897c.135-.093.14-.13.026-.249l-1.58-1.625a.181.181 0 0 0-.269-.034c-.218.14-.45.255-.695.342a4.573 4.573 0 0 1-1.94.336zm9.02 1.907l-4.26-4.337c-.093-.097-.17-.1-.245 0a5.36 5.36 0 0 1-1.082 1.162c-.101.08-.101.143 0 .236c.383.383.762.775 1.141 1.158c.493.501.985 1.002 1.482 1.503c.088.088.084.13 0 .206c-.198.148-.392.3-.598.421a9.288 9.288 0 0 1-3.596 1.491a7.158 7.158 0 0 1-1.528.177h-.206c-.364.025-.73.014-1.09-.034c-.422-.063-.818-.114-1.218-.202a8.981 8.981 0 0 1-1.482-.476a9.638 9.638 0 0 1-2.27-1.335a9.941 9.941 0 0 1-1.814-1.86a9.196 9.196 0 0 1-1.297-2.396a7.924 7.924 0 0 1-.573-2.64a1.916 1.916 0 0 1 0-.287v-.993a.775.775 0 0 1 0-.325c0-.08.034-.155.047-.235c.042-.373.108-.743.198-1.108c.115-.49.268-.97.459-1.436a9.684 9.684 0 0 1 4.362-4.859a9.293 9.293 0 0 1 3.79-1.14h.243a9.444 9.444 0 0 1 4.064.64l.362.151a9.933 9.933 0 0 1 1.579.88a.173.173 0 0 0 .256-.025c.447-.51.918-.994 1.386-1.482c.088-.093.092-.177 0-.253a12.03 12.03 0 0 0-5.217-2.156a13.158 13.158 0 0 0-1.634-.156a11.663 11.663 0 0 0-2.526.236a12.21 12.21 0 0 0-1.566.421c-.912.305-1.782.723-2.59 1.242c-.97.62-1.847 1.372-2.606 2.236a11.907 11.907 0 0 0-2.303 3.933c-.212.612-.38 1.238-.501 1.874c-.093.557-.156 1.12-.19 1.684a8.842 8.842 0 0 0 .084 1.814c.066.597.18 1.187.341 1.765c.114.391.228.783.375 1.162c.294.76.663 1.49 1.103 2.177a12.707 12.707 0 0 0 1.924 2.315c.473.436.98.833 1.516 1.188c.718.491 1.49.9 2.3 1.217c.806.32 1.647.548 2.504.682c.643.096 1.292.152 1.942.168c.42 0 .842-.067 1.237-.076c.3-.022.597-.067.889-.134c.324-.055.644-.14.964-.224a11.368 11.368 0 0 0 3.368-1.499c.937-.6 1.787-1.325 2.527-2.155c.122-.14.118-.164-.05-.316z" /></svg>
                 </div>
-                <div class="flex gap-x-4 sm:col-span-2">
-                    <div class="flex h-6 items-center">
-                        <button type="button" class="bg-gray-200 flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" role="switch" aria-checked="false" aria-labelledby="switch-1-label">
-                            <span class="sr-only">Agree to policies</span>
-                            <span aria-hidden="true" class="translate-x-0 h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out"></span>
-                        </button>
-                    </div>
-                    <label class="text-sm leading-6 text-gray-600" id="switch-1-label">
-                        By selecting this free palestine
-                        <a href="#" class="font-semibold text-red-600">privacy&nbsp;policy</a>.
-                    </label>
+            </div> */}
+            <div className="mx-auto mt-5 max-w-4xl sm:mt-5">
+                <div id="g-mapdisplay" style={{ height: '600px', width: '1000px', maxWidth: '100%' }} >
+                    <iframe className="w-full" style={{ height: '100%', width: '100%', border: '0' }} frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=Meghmallar+Housing+Complex,+Sewali+Path,+Hatigaon,+Guwahati,+Assam,+India&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
                 </div>
             </div>
-            <div class="mt-10">
-                <button type="submit" class="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Let&apos;s talk</button>
-            </div>
-        </form>
-    </div>);
+        </div>);
 }

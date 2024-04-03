@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <footer >
-          <div className="flex flex-row items-center justify-around h-16">
+          <div className="flex flex-row items-center justify-around h-12">
             <div style={{ 'width': '49%' }} >
               <hr style={{ 'border-color': '#334155' }} />
             </div>
@@ -26,10 +26,12 @@ export default function RootLayout({ children }) {
               <hr style={{ 'border-color': '#334155' }} />
             </div>
           </div>
-          <div>
-          <p className="p-5">
-            <a>Privay Policy</a>
-          </p>
+          <div className="flex justify-center items-center">
+          <div className="px-5 pb-5 lg:max-w-5xl lg:w-full flex justify-center gap-4 items-center">
+            <a href="#">Privay Policy</a>
+            &#169; Copyright 2024
+            <a href="#">Terms and Conditions</a>
+          </div>
           </div>
         </footer>
       </body>
