@@ -27,11 +27,11 @@ export default function RootLayout({ children }) {
             </div>
           </div>
           <div className="flex justify-center items-center">
-          <div className="px-5 pb-5 lg:max-w-5xl lg:w-full flex justify-center gap-4 items-center">
-            <a href="#">Privay Policy</a>
-            &#169; Copyright 2024
-            <a href="#">Terms and Conditions</a>
-          </div>
+            <div className="px-5 pb-5 lg:max-w-5xl lg:w-full flex flex-col sm:flex-row justify-center gap-4 items-center">
+              <a href="#">Privay Policy</a>
+              &#169; Copyright 2024
+              <a href="#">Terms and Conditions</a>
+            </div>
           </div>
         </footer>
       </body>

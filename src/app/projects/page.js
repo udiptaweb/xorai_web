@@ -1,25 +1,5 @@
 'use client';
-import axios from "axios";
 import Image from 'next/image'
-
-axios.defaults.withCredentials = true;
-axios.defaults.withXSRFToken = true;
-axios.defaults.headers.common['Accept'] = 'application/json';
-
-async function csrfCookieInitiate() {
-    await axios.get('http://xorai_api.dev/sanctum/csrf-cookie').then(async response => {
-        console.log(response);
-        await axios.post('http://xorai_api.dev/api/store-site-data', {
-            'data': 'test'
-        }).then((response) => {
-            console.log(response);
-        }).catch((error) => {
-            console.log(error);
-        })
-    });
-
-}
-
 
 export default function Page() {
 
@@ -30,7 +10,7 @@ export default function Page() {
                 <p className="text-3xl sm:text-4xl text-slate-900 font-extrabold tracking-tight dark:text-slate-50">Our Recent Projects</p>
             </div>
 
-            <div className="mx-auto mt-5 max-w-4xl sm:mt-5 grid grid-cols-3 gap-3">
+            <div className="mx-auto mt-5 max-w-4xl sm:mt-5 grid grid:cols-1 sm:grid-cols-3 gap-3 p-5 sm:p-0">
                 <div className="bg-white shadow-md rounded-md flex flex-col justify-between">
                     <div className="m-2 flex justify-center items-center">
                         <Image
